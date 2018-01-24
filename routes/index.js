@@ -35,12 +35,13 @@ function getData(res)
 					{
 						 if(doc != null)
 						{
-							tot16W+=doc.w2016
-							tot16R+=doc.r2016;					
+							if(doc.wrote_2016!="")
+							{tot16W+=parseInt(doc.wrote_2016);
+							tot16R+=parseInt(doc.passed_2016);}					
 						}
 						else
 						{
-							info=tot16W+" students wrote and "+tot16R+" students passed , an average of "+(tot16R/tot16W*100)+"% passed";	
+							info=tot16W+" students wrote and "+tot16R+" students passed , an average of "+parseInt(tot16R/tot16W*100)+"% passed";	
 							res.render('index', {
 								title: 'Home',
 								info: info

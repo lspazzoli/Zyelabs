@@ -48,7 +48,8 @@ app.post('/upload', function(req, res) {
       return res.status(500).send(err);
 	//Upload the data to the db
     var authors = [];
-         
+       MongoClient.connect(urlStudent, function(err, db) 
+			{  
     csv
      .fromString(authorFile.data.toString(), {
          headers: true,
@@ -56,7 +57,7 @@ app.post('/upload', function(req, res) {
      })
      .on("data", function(data){
          data['_id'] = new mongoose.Types.ObjectId();
-          
+         db.collection("data").insert(data);
          authors.push(data);
      })
 	 .on("error", function(data){
@@ -70,7 +71,7 @@ app.post('/upload', function(req, res) {
 		});
       });
 	
-	
+});
 	
 	
   });
