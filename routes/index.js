@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 var mongo = require('mongodb');
 var MongoClient = require('mongodb').MongoClient;
-var urlStudent = "mongodb://localhost:27017/student";
-
+//var urlStudent = "mongodb://localhost:27017/student";
+var urlStudent = "mongodb://heroku_kvr7qz3f:heroku_kvr7qz3f@ds213118.mlab.com:13118/heroku_kvr7qz3f"
 var info="";
 
 router.get('/', function(req, res){
