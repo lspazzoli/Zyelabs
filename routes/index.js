@@ -17,11 +17,6 @@ router.get('/admin', function(req, res){
 	info :0
   });
 });
-router.get('/info', function(req, res){
-  res.render('index', {
-    title: 'Info'
-  });
-});
 
 module.exports = router;
 

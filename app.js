@@ -13,7 +13,6 @@ var csv = require('fast-csv');
 var mongoose = require('mongoose');
 
 var index = require('./routes/index');
-var info = require('./routes/info');
 var admin = require('./routes/admin');
 
 var app = express();
@@ -32,7 +31,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
 
 app.use('/', index);
-app.use('/info', info);
 app.use('/admin', admin);
 
 app.post('/upload', function(req, res) {
