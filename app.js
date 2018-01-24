@@ -101,7 +101,6 @@ app.use(function(err, req, res, next) {
 module.exports = app;
 //EMIS , CenterNo ,w2014,r2014,w2015,r2015,w2016 r2016
 //demo data db.data.insert( { EMIS: "card" , CenterNo: "card" ,w2014: "card",r2014: 5,w2015: 5,r2015: 5,w2016: 5, r2016: 5 } )
-
 /*CODE FOR ADD 
 MongoClient.connect(urlStudent, function(err, db) {
 			db.collection( 'data' ).update (
