@@ -2,14 +2,15 @@ var express = require('express');
 var fileUpload = require('express-fileupload');
 var mongo = require('mongodb');
 var MongoClient = require('mongodb').MongoClient;
-var urlStudent = "mongodb://localhost:27017/student";
-var express = require('express');
+var urlStudent = "mongodb://test:test@ds213118.mlab.com:13118/heroku_kvr7qz3f";
+//var urlStudent = "mongodb://localhost:27017/student";
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var stylus = require('stylus');
+var csv = require('fast-csv');
+var mongoose = require('mongoose');
 
 var index = require('./routes/index');
 var info = require('./routes/info');
@@ -27,7 +28,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(stylus.middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
 
@@ -40,16 +40,39 @@ app.post('/upload', function(req, res) {
     return res.status(400).send('No files were uploaded.');
  
   // The name of the input field  to retrieve the uploaded file
-  let sampleFile = req.files.data;
+  let authorFile = req.files.data;
  
   // Use the mv() method to place the file somewhere on the server
-  sampleFile.mv(__dirname+'/data/information.csv', function(err) {
+  authorFile.mv(__dirname+'/data/information.csv', function(err) {
     if (err)
       return res.status(500).send(err);
-	res.render('admin', {
+	//Upload the data to the db
+    var authors = [];
+         
+    csv
+     .fromString(authorFile.data.toString(), {
+         headers: true,
+         ignoreEmpty: true
+     })
+     .on("data", function(data){
+         data['_id'] = new mongoose.Types.ObjectId();
+          
+         authors.push(data);
+     })
+	 .on("error", function(data){
+		return false;                         
+		})
+     .on("end", function(){
+        //load new page
+		res.render('admin', {
 		title: 'Upload Sucessful',
-		info : '1'
+		info : authors.length
 		});
+      });
+	
+	
+	
+	
   });
 });
 // catch 404 and forward to error handler
