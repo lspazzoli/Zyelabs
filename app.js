@@ -1,4 +1,5 @@
-
+var express = require('express');
+var fileUpload = require('express-fileupload');
 var mongo = require('mongodb');
 var MongoClient = require('mongodb').MongoClient;
 var urlStudent = "mongodb://localhost:27017/student";
@@ -28,11 +29,29 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(stylus.middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(fileUpload());
 
 app.use('/', index);
 app.use('/info', info);
 app.use('/admin', admin);
 
+app.post('/upload', function(req, res) {
+  if (!req.files)
+    return res.status(400).send('No files were uploaded.');
+ 
+  // The name of the input field  to retrieve the uploaded file
+  let sampleFile = req.files.data;
+ 
+  // Use the mv() method to place the file somewhere on the server
+  sampleFile.mv(__dirname+'/data/information.csv', function(err) {
+    if (err)
+      return res.status(500).send(err);
+	res.render('admin', {
+		title: 'Upload Sucessful',
+		info : '1'
+		});
+  });
+});
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -50,6 +69,10 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+ 
+
+ 
+
 
 module.exports = app;
 //EMIS , CenterNo ,w2014,r2014,w2015,r2015,w2016 r2016

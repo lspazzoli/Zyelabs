@@ -12,11 +12,11 @@ router.get('/', function(req, res){
 });
 
 router.get('/admin', function(req, res){
-  res.render('index', {
-    title: 'Admin'
+  res.render('admin', {
+    title: 'Admin',
+	info :0
   });
 });
-
 router.get('/info', function(req, res){
   res.render('index', {
     title: 'Info'

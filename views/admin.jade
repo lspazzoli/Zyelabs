@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1= title
+  if info == 0
+        p Please Select a csv to upload, this will rewrite all the data in the database
+
+block content2
+  if info == 0
+        form(method="post", enctype="multipart/form-data", action="/upload")
+           input(type="file", name="data")
+           input(type="submit", value="Upload")
