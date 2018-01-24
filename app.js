@@ -1,3 +1,7 @@
+
+var mongo = require('mongodb');
+var MongoClient = require('mongodb').MongoClient;
+var urlStudent = "mongodb://localhost:27017/student";
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -46,3 +50,33 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+//EMIS , CenterNo ,w2014,r2014,w2015,r2015,w2016 r2016
+//demo data db.data.insert( { EMIS: "card" , CenterNo: "card" ,w2014: "card",r2014: 5,w2015: 5,r2015: 5,w2016: 5, r2016: 5 } )
+
+/*CODE FOR ADD 
+MongoClient.connect(urlStudent, function(err, db) {
+			db.collection( 'data' ).update (
+					{ 'email' : email },{ $set : { "bar": barin, recID: recID } },
+					function( err, result ) { if ( err ) throw err;});
+			db.close();	});*/
+			
+			
+/*CODE FOR GET
+MongoClient.connect(urlStudent, function(err, db) 
+			{
+				var results=db.collection("data").find();
+				
+				results.each( function(err, doc)
+					{
+						 if(doc != null)
+						{
+							bardata=bardata+doc.name+";";							
+						}
+						else
+						{
+							dataReceived(sock,bardata);	
+						}
+					}
+				);		
+			db.close();
+			});	*/
