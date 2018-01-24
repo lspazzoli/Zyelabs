@@ -11,15 +11,15 @@ router.get('/', function(req, res){
   
 });
 
-router.get('/about', function(req, res){
-  res.render('about', {
-    title: 'About'
+router.get('/admin', function(req, res){
+  res.render('index', {
+    title: 'Admin'
   });
 });
 
-router.get('/contact', function(req, res){
-  res.render('contact', {
-    title: 'Contact'
+router.get('/info', function(req, res){
+  res.render('index', {
+    title: 'Info'
   });
 });
 
